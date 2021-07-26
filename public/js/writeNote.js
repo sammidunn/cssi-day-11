@@ -1,4 +1,5 @@
 let googleUser = null;
+let label = "General";
 
 window.onload = () => {
     firebase.auth().onAuthStateChanged(user => {
@@ -17,7 +18,7 @@ window.onload = () => {
         const noteText = document.querySelector("#noteText").value;
         console.log(noteTitle, noteText);
 
-        firebase.database().ref(`/users/${label}/${googleUser.uid}`).push({
+        firebase.database().ref(`/users/${googleUser.uid}/${label}/`).push({
             title: noteTitle,
             text: noteText
         }).then(() => {
@@ -31,7 +32,7 @@ window.onload = () => {
 
     const labelSelect = document.querySelector("#select");
     labelSelect.addEventListener("change", () => {
-        let labelIndex = selectElem.selectedIndex;
+        let labelIndex = labelSelect.selectedIndex;
         label = labelSelect.options[labelIndex].value;
     })
     
